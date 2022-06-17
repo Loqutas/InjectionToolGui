@@ -9,6 +9,9 @@ using System.Xml;
 
 namespace InjectionToolGui
 {
+    /// <summary>
+    /// Logic to control OA3 injection scripts.
+    /// </summary>
     internal static class InjectionController
     {
         public static bool IsInitialized { get; private set; }
@@ -16,6 +19,9 @@ namespace InjectionToolGui
         public static bool IsReported { get; private set; }
         public static bool HasBin { get; private set; }
 
+        /// <summary>
+        /// Initialize the controller by checking for injection, report, and the Oa3.bin.
+        /// </summary>
         public static void Initialization()
         {
             CheckForInjection();
@@ -26,6 +32,10 @@ namespace InjectionToolGui
             IsInitialized = true;
         }
 
+        /// <summary>
+        /// Checks for an injected Windows key.
+        /// </summary>
+        /// <returns><see cref="string"/> representing the activation key.</returns>
         public static string? CheckForInjection()
         {
             ManagementObjectSearcher key = new(
@@ -43,6 +53,10 @@ namespace InjectionToolGui
             return null;
         }
 
+        /// <summary>
+        /// Checks the OA3.xml file for the PKID.
+        /// </summary>
+        /// <returns><see cref="string"/> representing the PKID if it is found.</returns>
         public static string? ParseXml()
         {
             try
@@ -77,6 +91,9 @@ namespace InjectionToolGui
             return null;
         }
 
+        /// <summary>
+        /// Verify if an OA3.bin has been pulled from the server.
+        /// </summary>
         public static void CheckForBin()
         {
             if (File.Exists(@"C:\Temp\Data\oa3.bin"))
@@ -85,6 +102,9 @@ namespace InjectionToolGui
             }
         }
 
+        /// <summary>
+        /// Verify if the OA3 activation key has been reported. 
+        /// </summary>
         public static void CheckForReport()
         {
             if (File.Exists(@"C:\Temp\Data\Report.xml"))
@@ -93,6 +113,12 @@ namespace InjectionToolGui
             }
         }
 
+        /// <summary>
+        /// Calls injections script to inject a new OA# activation key.
+        /// </summary>
+        /// <param name="debug"></param>
+        /// <param name="systemInfo"></param>
+        /// <returns><see cref="Task"/> to complete the injection.</returns>
         public static async Task InjectNewKey(bool debug, SystemInfo systemInfo)
         {
             await WriteLogAsync("InjectNew", systemInfo);
@@ -172,6 +198,12 @@ namespace InjectionToolGui
             }
         }
 
+        /// <summary>
+        /// Uses the manufacturer tool to inject a previously pulled key.
+        /// </summary>
+        /// <param name="debug"></param>
+        /// <param name="systemInfo"></param>
+        /// <returns><see cref="Task"/> to complete the injection.</returns>
         public static async Task InjectOldKey(bool debug, SystemInfo systemInfo)
         {
             if (HasBin)
@@ -236,6 +268,11 @@ namespace InjectionToolGui
             }
         }
 
+        /// <summary>
+        /// Uses the manufacturer tool tp clear a key present in the system.
+        /// </summary>
+        /// <param name="systemInfo"></param>
+        /// <returns><see cref="Task"/> to complete the action.</returns>
         public static async Task ClearKey(SystemInfo systemInfo)
         {
             if (IsInjected)
@@ -297,6 +334,12 @@ namespace InjectionToolGui
             }
         }
 
+        /// <summary>
+        /// Uses the report script to report an injected key to Microsoft.
+        /// </summary>
+        /// <param name="debug"></param>
+        /// <param name="orderId"></param>
+        /// <returns><see cref="Task"/> to complete the report.</returns>
         public static async Task ReportKey(bool debug, string orderId)
         {
             if (!IsReported && HasBin)
@@ -324,6 +367,12 @@ namespace InjectionToolGui
             }
         }
 
+        /// <summary>
+        /// Uses the return script to return a pulled key that has not been reported.
+        /// </summary>
+        /// <param name="debug"></param>
+        /// <param name="orderId"></param>
+        /// <returns><see cref="Task"/> to complete the return.</returns>
         public static async Task ReturnKey(bool debug, string orderId)
         {
             if (!IsReported)
@@ -349,6 +398,12 @@ namespace InjectionToolGui
             }
         }
 
+        /// <summary>
+        /// Uses the upload scripts to upload log files to dropbox.
+        /// </summary>
+        /// <param name="debug"></param>
+        /// <param name="orderId"></param>
+        /// <returns><see cref="Task"/> to complete the upload.</returns>
         public static async Task UploadLogs(bool debug, string orderId)
         {
             if (IsReported)
@@ -375,6 +430,12 @@ namespace InjectionToolGui
             }
         }
 
+        /// <summary>
+        /// Writes info to InjectionLogs.csv.
+        /// </summary>
+        /// <param name="callerName"></param>
+        /// <param name="systemInfo"></param>
+        /// <returns><see cref="Task"/> to complete the action.</returns>
         public static async Task WriteLogAsync(string callerName, SystemInfo systemInfo)
         {
             // Logs information to a text file
@@ -415,6 +476,11 @@ namespace InjectionToolGui
             await file.WriteAsync(line);
         }
 
+        /// <summary>
+        /// Reboots the system. Will prompt if the reboot checkbox in debug is not checked.
+        /// </summary>
+        /// <param name="prompt"></param>
+        /// <returns><see cref="Task"/> to reboot the system.</returns>
         public static async Task Reboot(bool prompt)
         {
             await Task.Run(() =>

@@ -511,6 +511,8 @@ namespace InjectionToolGui
             SystemInfo.ProductId = InjectionController.ParseXml();
             SystemInfo.ActivationKey = InjectionController.CheckForInjection();
             ProgressBarControl();
+
+            InjectButton.IsEnabled = !InjectionController.IsInjected;
         }
     }
 }

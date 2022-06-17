@@ -3,6 +3,9 @@ using System.Management;
 
 namespace InjectionToolGui
 {
+    /// <summary>
+    /// Represents the memory info needed for injection.
+    /// </summary>
     internal class Memory
     {
         public uint Size { get; set; }
@@ -14,7 +17,11 @@ namespace InjectionToolGui
             Advanced = FindAdvanced();
         }
 
-        private uint FindMemorySize()
+        /// <summary>
+        /// Finds the size of the installed memory.
+        /// </summary>
+        /// <returns><see cref="uint"/> representing the total memory in gigabytes.</returns>
+        private static uint FindMemorySize()
         {
             double size = 0;
 
@@ -29,6 +36,10 @@ namespace InjectionToolGui
             return (uint) size;
         }
 
+        /// <summary>
+        /// Checks if the installed memory meets the requirements for an advanced key.
+        /// </summary>
+        /// <returns><see cref="bool"/> representing if the memory meets the requirements for an advanced key.</returns>
         private bool FindAdvanced()
         {
             if (Size > 8)

@@ -6,12 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>1027.ico</ApplicationIcon>
+    <ApplicationIcon>Key.ico</ApplicationIcon>
     <AssemblyName>WIndows Injection Tool</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="1027.ico" />
+    <Content Include="Key.ico" />
   </ItemGroup>
 
   <ItemGroup>

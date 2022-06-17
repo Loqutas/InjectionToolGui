@@ -3,6 +3,9 @@ using System.Management;
 
 namespace InjectionToolGui
 {
+    /// <summary>
+    /// Represents the baseboard info needed for injection.
+    /// </summary>
     internal class Baseboard
     {
         public enum MANUFACTURER { NONE, ASROCK, ASUS, ASUSZ690, GIGABYTE, MSI, SAGER, SAGERH2O, TONGFANG }

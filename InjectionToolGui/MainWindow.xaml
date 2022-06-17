@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InjectionToolGui"
         mc:Ignorable="d"
-        Title="Injection Tools" Height="406" Width="700">
+        Title="Injection Tools" Height="406" Width="700" MaxHeight="406" MaxWidth="700">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
         <Menu x:Name="MainMenu" Height="20" VerticalAlignment="Top" IsMainMenu="True" >
             <MenuItem Header="_File">
                 <MenuItem Header="_Exit" Click="Exit_Click"/>
@@ -27,7 +31,7 @@
             <Label Content="{Binding OS.Full}"  Height="25" Width="139"/>
 
         </Menu>
-        <GroupBox Header="Manufacturer" Margin="10,82,378,204">
+        <GroupBox Header="Manufacturer" Margin="10,4,378,204" Grid.Row="1">
             <Grid Height="68">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -41,46 +45,57 @@
                 <RadioButton x:Name="AsusZ690Radio" Content="Asus Z690" Click="AsusZ690Radio_Click" HorizontalAlignment="Left" Margin="141,45,0,0" VerticalAlignment="Top" Grid.Column="1"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Windows Version" Margin="10,191,378,122">
-            <Grid Height="35" Margin="27,0,16,0">
-                <RadioButton x:Name="Win10Radio" Content="Windows 10" Click="Win10Radio_Click" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                <RadioButton x:Name="Win11Radio" Content="Windows 11" Click="Win11Radio_Click" HorizontalAlignment="Left" Margin="159,0,0,0" VerticalAlignment="Center"/>
-            </Grid>
-        </GroupBox>
-        <GroupBox Header="Windows Edition" Margin="10,273,378,10">
-            <Grid Height="67" Margin="0,0,5,0">
-                <RadioButton x:Name="HomeRadio" Click="HomeRadio_Click" Content="Home" HorizontalAlignment="Left" Height="16" Margin="10,10,0,44" Width="66"/>
-                <RadioButton x:Name="ProRadio" Click="ProRadio_Click" Content="Pro" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top"/>
-                <RadioButton x:Name="RdpkRadio" Click="RdpkRadio_Click" Content="RDPK" HorizontalAlignment="Left" Margin="222,10,0,0" VerticalAlignment="Top"/>
-                <RadioButton x:Name="HomeAdvancedRadio" Click="HomeAdvancedRadio_Click" Content="Home Advanced" HorizontalAlignment="Left" Margin="28,45,0,0" VerticalAlignment="Top"/>
-                <RadioButton x:Name="ProAdvancedRadio" Click="ProAdvancedRadio_Click" Content="Pro Advanced" HorizontalAlignment="Left" Margin="178,45,0,0" VerticalAlignment="Top"/>
-            </Grid>
-        </GroupBox>
-        <Grid Margin="10,25,10,313">
+        <Grid Margin="10,25,10,1">
             <Label Content="Order Number:" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <TextBox x:Name="OrderIdTextBox" TextChanged="OrderIdTextBox_TextChanged" Text="{Binding OrderId}" HorizontalAlignment="Left" Margin="101,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
             <TextBox x:Name="MotherboardTextBox" Text="{Binding Baseboard.Name}" TextChanged="MotherboardTextBox_TextChanged" HorizontalAlignment="Left" Margin="318,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="166"/>
             <Label Content="Motherboard:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="230,0,0,0"/>
             <ProgressBar x:Name="Progress" Visibility="Hidden" IsIndeterminate="True" HorizontalAlignment="Left" Height="17" Margin="519,0,0,0" VerticalAlignment="Center" Width="143"/>
         </Grid>
-        <GroupBox Header="Injection" Margin="327,273,10,10">
-            <Grid Margin="10,0,4,0" Height="87">
-                <Button x:Name="InjectButton" Content="Inject" HorizontalAlignment="Left" Margin="263,13,0,0" VerticalAlignment="Top" Width="52" Click="InjectButton_Click"/>
-                <Label Content="PKID:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                <Label Content="Key:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="PkidTextBox" Text="{Binding ProductId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" HorizontalAlignment="Left" Margin="53,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201"/>
-                <TextBox x:Name="KeyTextBox" Text="{Binding ActivationKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" HorizontalAlignment="Left" Margin="53,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267"/>
+        <Grid Margin="10,4,10,10" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="112*"/>
+                <RowDefinition Height="81*"/>
+                <RowDefinition Height="105*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="63*"/>
+                <ColumnDefinition Width="73*"/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Header="Windows Version" Margin="0,109,2,7" Grid.RowSpan="2">
+                <Grid Height="35" Margin="27,0,16,0">
+                    <RadioButton x:Name="Win10Radio" Content="Windows 10" Click="Win10Radio_Click" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                    <RadioButton x:Name="Win11Radio" Content="Windows 11" Click="Win11Radio_Click" HorizontalAlignment="Left" Margin="159,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Windows Edition" Margin="0,79,2,0" Grid.RowSpan="2" Grid.Row="1">
+                <Grid Height="67" Margin="0,0,5,0">
+                    <RadioButton x:Name="HomeRadio" Click="HomeRadio_Click" Content="Home" HorizontalAlignment="Left" Height="16" Margin="10,10,0,44" Width="66"/>
+                    <RadioButton x:Name="ProRadio" Click="ProRadio_Click" Content="Pro" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="RdpkRadio" Click="RdpkRadio_Click" Content="RDPK" HorizontalAlignment="Left" Margin="222,10,0,0" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="HomeAdvancedRadio" Click="HomeAdvancedRadio_Click" Content="Home Advanced" HorizontalAlignment="Left" Margin="28,45,0,0" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="ProAdvancedRadio" Click="ProAdvancedRadio_Click" Content="Pro Advanced" HorizontalAlignment="Left" Margin="178,45,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Injection" Margin="3,79,0,0" Grid.Column="1" Grid.RowSpan="2" Grid.Row="1">
+                <Grid Margin="10,0,4,0" Height="87">
+                    <Button x:Name="InjectButton" Content="Inject" HorizontalAlignment="Left" Margin="263,13,0,0" VerticalAlignment="Top" Width="52" Click="InjectButton_Click"/>
+                    <Label Content="PKID:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Key:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="PkidTextBox" Text="{Binding ProductId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" HorizontalAlignment="Left" Margin="53,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201"/>
+                    <TextBox x:Name="KeyTextBox" Text="{Binding ActivationKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" HorizontalAlignment="Left" Margin="53,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267"/>
 
-            </Grid>
-        </GroupBox>
-        <GroupBox x:Name="DebugGroupBox" Header="Debug" Margin="327,82,10,122" Visibility="Hidden">
-            <Grid Margin="0,0,-2,0">
-                <ListBox x:Name="DebugList" SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" d:ItemsSource="{d:Binding DebugList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,60"/>
-                <CheckBox x:Name="TestCheckbox" Content="Test" IsChecked="{Binding UseTestKey}" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="RebootCheckbox" Content="Reboot" IsChecked="{Binding RebootSystem}" HorizontalAlignment="Left" Margin="136,108,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="InteractiveCheckbox" Content="Interactive" IsChecked="{Binding Interactive}" HorizontalAlignment="Left" Margin="56,108,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox x:Name="DebugGroupBox" Header="Debug" Margin="3,0,0,7" Visibility="Hidden" Grid.Column="1" Grid.RowSpan="2">
+                <Grid Margin="0,0,-2,0">
+                    <ListBox x:Name="DebugList" SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" d:ItemsSource="{Binding DebugList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,60"/>
+                    <CheckBox x:Name="TestCheckbox" Content="Test" IsChecked="{Binding UseTestKey}" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="RebootCheckbox" Content="Reboot" IsChecked="{Binding RebootSystem}" HorizontalAlignment="Left" Margin="136,108,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="InteractiveCheckbox" Content="Interactive" IsChecked="{Binding Interactive}" HorizontalAlignment="Left" Margin="56,108,0,0" VerticalAlignment="Top"/>
 
-            </Grid>
-        </GroupBox>
+                </Grid>
+            </GroupBox>
+        </Grid>
     </Grid>
 </Window>

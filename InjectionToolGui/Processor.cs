@@ -5,7 +5,7 @@ namespace InjectionToolGui
 
 {
     /// <summary>
-    /// Class to store the processor name and wheter it meets the parameters for an advanced key.
+    /// Represents the installed processor info needed for injection.
     /// </summary>
     internal class Processor
     {
@@ -36,7 +36,7 @@ namespace InjectionToolGui
         }
 
         /// <summary>
-        /// Checks if the processor meets the parameters for an advanced key.
+        /// Checks if the processor meets the requirements for an advanced key.
         /// </summary>
         /// <returns><seealso cref="bool"/></returns>
         private bool FindAdvanced()

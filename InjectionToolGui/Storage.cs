@@ -3,7 +3,7 @@
 namespace InjectionToolGui
 {
     /// <summary>
-    /// Class to count total storage and check if it meets the advanced key parameter.
+    /// Represents the storage info needed for injection.
     /// </summary>
     internal class Storage
     {
@@ -16,7 +16,11 @@ namespace InjectionToolGui
             Advanced = FindAdvanced();
         }
 
-        private uint FindTotalStorageSpace()
+        /// <summary>
+        /// Finds the total storage space in the system.
+        /// </summary>
+        /// <returns><see cref="uint"/> representing the total storage space in gigabytes</returns>
+        private static uint FindTotalStorageSpace()
         {
             ulong totalSizeInBytes = 0;
 
@@ -33,6 +37,10 @@ namespace InjectionToolGui
 
         }
 
+        /// <summary>
+        /// Checks if the total storage space meets the requirements for advanced keys.
+        /// </summary>
+        /// <returns><see cref="bool"/> representing the requirements for an advanced key is met.</returns>
         private bool FindAdvanced()
         {
             if (TotalStorageSpace > 1250)

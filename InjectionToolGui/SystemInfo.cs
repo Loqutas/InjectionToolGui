@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 namespace InjectionToolGui
 {
     /// <summary>
-    /// Class to store data about system
+    /// Represents all the system info needed for injection
     /// </summary>
     internal class SystemInfo : INotifyPropertyChanged
     {
@@ -50,9 +50,6 @@ namespace InjectionToolGui
             }
         }
 
-        /// <summary>
-        /// List of actions that have been taken.
-        /// </summary>
         public ObservableCollection<string> DebugList { get; set; } = new();
         public bool UseTestKey 
         { 
@@ -106,7 +103,7 @@ namespace InjectionToolGui
         }
 
         /// <summary>
-        /// Set <see cref="OS.Edition"/> to <see cref="OS.Editions.HomeA"/> or <see cref="OS.Editions.ProA"/>.
+        /// Set <see cref="OS.Edition"/> to <see cref="OS.Editions.HomeA"/> or <see cref="OS.Editions.ProA"/> if requirements are met.
         /// </summary>
         private void SetAdvanced()
         {

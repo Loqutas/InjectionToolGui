@@ -5,8 +5,15 @@ using System.Windows;
 
 namespace InjectionToolGui
 {
+    /// <summary>
+    /// Represents the operating system info needed for injectiion.
+    /// </summary>
     internal class OS
     {
+        /// <summary>
+        /// <see cref="Enum"/> Options for installed Windows editions.
+        ///     Only contains editions that are used by the key server.
+        /// </summary>
         public enum Editions { NONE, Home, HomeA, Pro, ProA, RDPK }
 
         public string Version { get; set; }
@@ -20,6 +27,10 @@ namespace InjectionToolGui
             Full = $"Windows {Version} {Edition}";
         }
 
+        /// <summary>
+        /// Finds the installed Windows version.
+        /// </summary>
+        /// <returns><see cref="string"/> representing the installed Windows version.</returns>
         private string FindVersion()
         {
             try
@@ -55,6 +66,10 @@ namespace InjectionToolGui
             }
         }
 
+        /// <summary>
+        /// Finds the installed windows edition.
+        /// </summary>
+        /// <returns><see cref="OS.Editions"/> representing the installed Windows edition.</returns>
         private static Editions FindEdition()
         {
             try
