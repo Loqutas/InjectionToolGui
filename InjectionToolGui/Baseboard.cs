@@ -33,7 +33,7 @@ namespace InjectionToolGui
                     string man when man.Contains("Micro") => MANUFACTURER.MSI,
                     string man when man.Contains("Notebook") => MANUFACTURER.SAGERH2O,
                     string man when man.Contains("THTF") => MANUFACTURER.TONGFANG,
-                    _ => throw new ArgumentException("Could not find matching manufacutrer."),
+                    _ => MANUFACTURER.NONE,
                 };
             }
 

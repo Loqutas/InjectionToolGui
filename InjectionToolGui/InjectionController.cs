@@ -144,6 +144,7 @@ namespace InjectionToolGui
                     OS.Editions.Pro => "2",
                     OS.Editions.HomeA => "3",
                     OS.Editions.ProA => "4",
+                    OS.Editions.RDPK => "rdpk",
                     _=> throw new Exception("Could not resolve windows edition."),
                 };
 
@@ -176,7 +177,7 @@ namespace InjectionToolGui
                     {
                         if (!HasBin) { throw new Exception("Server did not provide a key. Check stock levels and contact a manager if the error continues"); }
                         if (!IsInjected) { throw new Exception("Key was pulled, but was not injected. Try rebooting the system and reporting."); }
-                        if (!IsReported) { throw new Exception("Failed to report to Microsoft."); }
+                        if (!IsReported && systemInfo.OS.Edition != OS.Editions.RDPK) { throw new Exception("Failed to report to Microsoft."); }
                     }
                     catch (ApplicationException ex)
                     {
@@ -298,12 +299,10 @@ namespace InjectionToolGui
                     systemInfo.DebugList.Insert(0, $"{DateTime.Now} {tool} clear");
                     await Task.Run(() =>
                     {
-                        string cmdSwitch = systemInfo.Interactive ? "/K" : "/C";
-
                         var InjectProcess = new Process();
                         InjectProcess.StartInfo.FileName = "cmd.exe";
                         InjectProcess.StartInfo.Arguments =
-                            @$"{cmdSwitch} .\OA30\{tool} clear";
+                            @$"/C .\OA30\{tool} clear";
                         InjectProcess.StartInfo.CreateNoWindow = false;
                         InjectProcess.StartInfo.RedirectStandardError = true;
 
