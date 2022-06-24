@@ -19,7 +19,6 @@ namespace InjectionToolGui
             CheckSettings();
 
             this.DataContext = SystemInfo;
-
             DebugList.ItemsSource = SystemInfo.DebugList;
 
             try
