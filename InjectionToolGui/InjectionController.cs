@@ -159,7 +159,7 @@ namespace InjectionToolGui
                     var InjectProcess = new Process();
                     InjectProcess.StartInfo.FileName = "cmd.exe";
                     InjectProcess.StartInfo.Arguments = systemInfo.UseTestKey ? 
-                        @$"{cmdSwitch} {systemInfo.Baseboard.Manufacturer.ToString().ToLower()} inject .\OA3.bin" :
+                        @$"{cmdSwitch} .\OA30\{systemInfo.Baseboard.Manufacturer} inject .\OA30\OA3.bin" :
                         @$"{cmdSwitch} .\OA30\pcloa3assemble11.cmd {systemInfo.Baseboard.Name} {systemInfo.OS.Version} {editionNum} {systemInfo.OrderId} {toolNum}";
                     InjectProcess.StartInfo.CreateNoWindow = !debug;
                     InjectProcess.StartInfo.RedirectStandardError = true;
@@ -235,7 +235,7 @@ namespace InjectionToolGui
                         var InjectProcess = new Process();
                         InjectProcess.StartInfo.FileName = "cmd.exe";
                         InjectProcess.StartInfo.Arguments =
-                            @$"{cmdSwitch} .\OA30\{tool} inject";
+                            @$"{cmdSwitch} .\OA30\{tool} inject C:\Temp\Data\oa3.bin";
                         InjectProcess.StartInfo.CreateNoWindow = !debug;
                         InjectProcess.StartInfo.RedirectStandardError = true;
 
@@ -243,7 +243,7 @@ namespace InjectionToolGui
                         InjectProcess.WaitForExit();
 
 
-                        CheckForInjection();
+                        systemInfo.ActivationKey = CheckForInjection();
 
                         try
                         {      
@@ -310,7 +310,7 @@ namespace InjectionToolGui
                         InjectProcess.WaitForExit();
                     });
 
-                    await Reboot(false);
+                    await Reboot(true);
                 }
                 catch (Exception e)
                 {
@@ -469,7 +469,7 @@ namespace InjectionToolGui
 
             line.Append(scriptMFR + ",");
             line.Append(systemInfo.OS.Version + ",");
-            line.Append(systemInfo.OS.Edition + ",");
+            line.Append(systemInfo.OS.Edition + "\n");
 
             using StreamWriter file = new(@".\InjectionLogs.csv", append: true);
             await file.WriteAsync(line);
@@ -492,11 +492,11 @@ namespace InjectionToolGui
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Exclamation);
 
-                    if (result == MessageBoxResult.Yes) { Process.Start("cmd.exe", "shutdown -r -t 0"); }
+                    if (result == MessageBoxResult.Yes) { Process.Start("cmd.exe", "/C shutdown -r -t 0"); }
                 }
                 else
                 {
-                    Process.Start("cmd.exe", "shutdown -r -t 0");
+                    Process.Start("cmd.exe", "/C shutdown -r -t 0");
                 }
             });
         }

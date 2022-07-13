@@ -8,6 +8,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Key.ico</ApplicationIcon>
     <AssemblyName>WIndows Injection Tool</AssemblyName>
+    <AssemblyVersion>2022.7.12.1</AssemblyVersion>
+    <FileVersion>2022.7.12.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

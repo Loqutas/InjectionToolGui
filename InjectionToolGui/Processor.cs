@@ -32,7 +32,9 @@ namespace InjectionToolGui
                 stringBuilder.Append(obj[nameof(Name)].ToString());
             }
 
-            return stringBuilder.ToString();
+            return stringBuilder.ToString().Contains('@') ? 
+                stringBuilder.ToString().Remove(stringBuilder.ToString().IndexOf('@')) :
+                stringBuilder.ToString();
         }
 
         /// <summary>

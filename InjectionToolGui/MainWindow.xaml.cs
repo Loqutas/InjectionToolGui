@@ -15,24 +15,31 @@ namespace InjectionToolGui
 
         public MainWindow()
         {
-            InitializeComponent();
-            CheckSettings();
-
-            this.DataContext = SystemInfo;
-            DebugList.ItemsSource = SystemInfo.DebugList;
-
             try
             {
-                InjectionController.Initialization();
+                InitializeComponent();
+                CheckSettings();
+
+                this.DataContext = SystemInfo;
+                DebugList.ItemsSource = SystemInfo.DebugList;
+
+                try
+                {
+                    InjectionController.Initialization();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
+                InitializeRadios();
+
+                SystemInfo.DebugList.Insert(0, $"{DateTime.Now} Finished Initialization");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
+                MessageBox.Show($"There was an error opening the application.\n{ex.Message}", "Unexpeted Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            InitializeRadios();
-
-            SystemInfo.DebugList.Insert(0, $"{DateTime.Now} Finished Initialization");
         }
         /// <summary>
         /// Verify that secure boot, tpm, and core isolation are enabled and functioning. Check if injection

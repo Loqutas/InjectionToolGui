@@ -1,6 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Windows;
 
 namespace InjectionToolGui
 {
@@ -15,6 +21,7 @@ namespace InjectionToolGui
         private bool useTestKey;
         private bool interactive;
         private bool rebootSystem;
+        private string? version;
 
         public Processor Processor { get; set; }
         public Memory Memory { get; set; }
@@ -22,17 +29,17 @@ namespace InjectionToolGui
         public Storage Storage { get; set; }
         public OS OS { get; set; }
 
-        public string? OrderId 
-        { 
-            get {  return orderId; }
+        public string? OrderId
+        {
+            get { return orderId; }
             set
             {
                 orderId = value;
                 OnPropertyChanged("OrderId");
             }
         }
-        public string? ProductId 
-        { 
+        public string? ProductId
+        {
             get { return productId; }
             set
             {
@@ -40,8 +47,8 @@ namespace InjectionToolGui
                 OnPropertyChanged("ProductId");
             }
         }
-        public string? ActivationKey 
-        { 
+        public string? ActivationKey
+        {
             get { return activationKey; }
             set
             {
@@ -49,10 +56,18 @@ namespace InjectionToolGui
                 OnPropertyChanged("ActivationKey");
             }
         }
+        public string? Version
+        {
+            get { return version; }
+            private set
+            {
+                version = value;
+            }
+        }
 
         public ObservableCollection<string> DebugList { get; set; } = new();
-        public bool UseTestKey 
-        { 
+        public bool UseTestKey
+        {
             get { return useTestKey; }
             set
             {
@@ -69,7 +84,8 @@ namespace InjectionToolGui
                 OnPropertyChanged("Interactive");
             }
         }
-        public bool RebootSystem { 
+        public bool RebootSystem
+        {
             get { return rebootSystem; }
             set
             {
@@ -88,7 +104,11 @@ namespace InjectionToolGui
             ProductId = InjectionController.ParseXml();
             ActivationKey = InjectionController.CheckForInjection();
 
+            Version? version = Assembly.GetExecutingAssembly().GetName().Version;
+            Version = version != null ? version.ToString() : "Not Found";
+
             SetAdvanced();
+            CheckForQcLog();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -121,6 +141,29 @@ namespace InjectionToolGui
                     string name when name.Contains("Threadripper") => OS.Editions.ProA,
                     _ => OS.Editions.Pro,
                 };
+            }
+        }
+
+        /// <summary>
+        /// Pull the order id from the qc log if it exists.
+        /// </summary>
+        private void CheckForQcLog()
+        {
+            if (File.Exists(@"C:\Recovery\QC\QC.json"))
+            {
+                try
+                {
+                    using FileStream fileStream = new(@"C:\Recovery\QC\QC.json", FileMode.Open, FileAccess.Read);
+                    using StreamReader streamReader = new(fileStream);
+                    string Json = streamReader.ReadToEnd();
+                    JsonElement jsonElement = JsonSerializer.Deserialize<JsonElement>(Json);
+
+                    OrderId = jsonElement.GetProperty("ID").ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, @"C:\Recovery\QC\QC.json");
+                }
             }
         }
     }

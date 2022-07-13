@@ -24,14 +24,14 @@
                 <Separator/>
                 <MenuItem Header="_Debug" IsCheckable="True" Click="Debug_Click"/>
             </MenuItem>
-            <Separator Width="57"/>
+            <Separator Width="29"/>
             <Label Content="{Binding Processor.Name}" Height="25" Width="206" FontSize="12"/>
-            <Label Content="{Binding Memory.Size}" ContentStringFormat="{}{0} GB" Height="25" Width="63"/>
+            <Label Content="{Binding Memory.Size}" ContentStringFormat="{}{0} GB" Height="25" Width="51"/>
             <Label Content="{Binding Storage.TotalStorageSpace}" ContentStringFormat="{}{0} GB" Height="25" Width="67"/>
-            <Label Content="{Binding OS.Full}"  Height="25" Width="139"/>
+            <Label Content="{Binding OS.Full}"  Height="25" Width="129"/>
 
         </Menu>
-        <GroupBox Header="Manufacturer" Margin="10,4,378,204" Grid.Row="1">
+        <GroupBox Header="Manufacturer" Margin="10,4,377,204" Grid.Row="1">
             <Grid Height="68">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -84,16 +84,15 @@
                     <Label Content="Key:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="PkidTextBox" Text="{Binding ProductId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" HorizontalAlignment="Left" Margin="53,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201"/>
                     <TextBox x:Name="KeyTextBox" Text="{Binding ActivationKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" HorizontalAlignment="Left" Margin="53,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267"/>
-
                 </Grid>
             </GroupBox>
             <GroupBox x:Name="DebugGroupBox" Header="Debug" Margin="3,0,0,7" Visibility="Hidden" Grid.Column="1" Grid.RowSpan="2">
                 <Grid Margin="0,0,-2,0">
                     <ListBox x:Name="DebugList" SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" d:ItemsSource="{Binding DebugList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,60"/>
-                    <CheckBox x:Name="TestCheckbox" Content="Test" IsChecked="{Binding UseTestKey}" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="RebootCheckbox" Content="Reboot" IsChecked="{Binding RebootSystem}" HorizontalAlignment="Left" Margin="136,108,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="InteractiveCheckbox" Content="Interactive" IsChecked="{Binding Interactive}" HorizontalAlignment="Left" Margin="56,108,0,0" VerticalAlignment="Top"/>
-
+                    <CheckBox x:Name="TestCheckbox" Content="Test Flash" IsChecked="{Binding UseTestKey}" HorizontalAlignment="Left" Margin="128,108,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="RebootCheckbox" Content="Reboot" IsChecked="{Binding RebootSystem}" HorizontalAlignment="Left" Margin="284,108,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="InteractiveCheckbox" Content="Interactive" IsChecked="{Binding Interactive}" HorizontalAlignment="Left" Margin="204,108,0,0" VerticalAlignment="Top"/>
+                    <Label Content="{Binding Version}" ContentStringFormat="Version : {0}" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </GroupBox>
         </Grid>
